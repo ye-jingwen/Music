@@ -10,10 +10,27 @@
     <div class="header-right">
       <!-- 全屏事件按钮 -->
       <div class="btn-fullscreen" @click="handleFullScreen">
-        <el-tooltip :content="fullscreen ? `取消全屏` : `全屏`" placement="bottom">
+        <el-tooltip
+          :content="fullscreen ? `取消全屏` : `全屏`"
+          placement="bottom"
+        >
           <i class="el-icon-rank"></i>
         </el-tooltip>
       </div>
+      <!-- 头像 -->
+      <div class="user-avator">
+        <img src="../assets/img/user.png" />
+      </div>
+      <!-- 下拉菜单 -->
+      <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+        <span class="el-dropdown-link">
+            {{ userName }}
+            <i class="el-icon-caret-bottom"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -27,6 +44,11 @@ export default {
       collapse: false,
       fullscreen: false,
     };
+  },
+  computed: {
+    userName() {
+      return localStorage.getItem("userName");
+    },
   },
   methods: {
     //侧边折叠栏
@@ -65,8 +87,15 @@ export default {
           element.msRequestFullScreen();
         }
       }
-      this.fullscreen = !this.fullscreen;   //修改变量值与当前状态相同
-    }
+      this.fullscreen = !this.fullscreen; //修改变量值与当前状态相同
+    },
+    //退出登录
+    handleCommand(command) {
+      if (command == "logout") {
+        localStorage.removeItem("userName");
+        this.$router.push("/");
+      }
+    },
   },
 };
 </script>
@@ -102,5 +131,21 @@ export default {
   transform: rotate(45deg); /* 将图标旋转45度 */
   margin-right: 5px;
   font-size: 24px;
+}
+.user-avator {
+  margin-left: 20px;
+}
+.user-avator img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.user-name {
+  margin-left: 10px;
+}
+.el-dropdown-link {
+  color: #ffffff;
+  cursor: pointer;
 }
 </style>
