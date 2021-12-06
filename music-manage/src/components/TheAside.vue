@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import bus from "../assets/js/bus";
+
 export default{
     data(){
         return{
@@ -55,6 +57,12 @@ export default{
         onRoutes(){
             return this.$route.path.replace('/','');   //默认进入页面为系统首页
         }
+    },
+    created(){
+        //通过bus进行组件间的通信，来折叠侧边栏
+        bus.$on('collapse',msg=>{
+            this.collapse=msg;
+        })
     }
 }
 </script>
@@ -70,14 +78,17 @@ export default{
     overflow-y: scroll;
 }
 
+/* 去掉左侧菜单侧边滚动条 */
 .sidebar::-webkit-scrollbar{
     width: 0;
 }
 
+/* 只有当collapse为false时才起作用，即折叠状态时宽度不为150px */
 .sidebar-el-menu:not(.el-menu--collapse){
     width: 150px;
 }
 
+/* 设置左侧菜单内部高度 */
 .sidebar >ul {
     height: 100%;
 }

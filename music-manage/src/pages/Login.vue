@@ -41,6 +41,7 @@ export default {
     };
   },
   methods: {
+    //判断管理员是否登陆成功
     submitForm() {
       let params = new URLSearchParams();
       params.append("name", this.ruleForm.username);
