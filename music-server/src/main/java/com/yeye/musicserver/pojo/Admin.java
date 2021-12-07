@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @program: music-server
  * @description: 管理员
@@ -13,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admin {
-    private Integer id;
-    private String password;
+public class Admin implements Serializable {
+    private Integer id;   //主键
+    private String name;   //账号
+    private String password;   //密码
 }

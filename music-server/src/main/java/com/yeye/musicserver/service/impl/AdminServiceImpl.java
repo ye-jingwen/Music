@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @program: music-server
- * @description: 管理员业务逻辑类
+ * @description: 管理员业务逻辑实现类
  * @author: YEYE
  * @create: 2021-12-05
  **/
