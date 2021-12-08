@@ -1,12 +1,10 @@
 package com.yeye.musicserver.service.impl;
 
-
 import com.yeye.musicserver.dao.SingerMapper;
 import com.yeye.musicserver.pojo.Singer;
 import com.yeye.musicserver.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 

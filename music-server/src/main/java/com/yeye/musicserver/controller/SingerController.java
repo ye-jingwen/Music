@@ -14,7 +14,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @program: music-server
@@ -114,41 +113,33 @@ public class SingerController {
         JSONObject jsonObject = new JSONObject();
         String id = request.getParameter("id").trim();
         boolean flag = singerService.delete(Integer.parseInt(id));
-//        if (flag) {
-//            jsonObject.put(Consts.CODE, 1);
-//            jsonObject.put(Consts.MSG, "删除成功");
-//        } else {
-//            jsonObject.put(Consts.CODE, 0);
-//            jsonObject.put(Consts.MSG, "删除失败");
-//        }
-//        return jsonObject;
         return flag;
     }
 
     //根据id查询歌手
     @RequestMapping(value = "/selectById", method = RequestMethod.GET)
-    public Singer selectById(HttpServletRequest request) {
+    public Object selectById(HttpServletRequest request) {
         String id = request.getParameter("id").trim();
         return singerService.selectById(Integer.parseInt(id));
     }
 
     //根据性别查询歌手
     @RequestMapping(value = "/selectBySex", method = RequestMethod.GET)
-    public List<Singer> selectBySex(HttpServletRequest request) {
+    public Object selectBySex(HttpServletRequest request) {
         String sex = request.getParameter("sex").trim();
         return singerService.selectBySex(Integer.parseInt(sex));
     }
 
     //根据歌手名字模糊查询列表
     @RequestMapping(value = "/selectByName", method = RequestMethod.GET)
-    public List<Singer> selectByName(HttpServletRequest request) {
+    public Object selectByName(HttpServletRequest request) {
         String name = request.getParameter("name").trim();
-        return singerService.selectByName("%"+name+"%");
+        return singerService.selectByName("%" + name + "%");
     }
 
     //查询所有歌手
     @RequestMapping(value = "/allSinger", method = RequestMethod.GET)
-    public List<Singer> allSinger(HttpServletRequest request) {
+    public Object allSinger(HttpServletRequest request) {
         return singerService.allSinger();
     }
 }
