@@ -8,3 +8,5 @@ export const getLoginStatus = (params) => post(`admin/login/status`, params);
 export const getAllSinger = () => get(`singer/allSinger`);
 //添加歌手
 export const setSinger = (params) => post(`singer/insertSinger`, params);
+//编辑歌手
+export const updateSinger=(params)=>post(`singer/updateSinger`,params);

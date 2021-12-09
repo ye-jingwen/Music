@@ -28,8 +28,39 @@ export const mixin = {
             return value;
         },
         //获取生日
-        attachBirth(val){
-            return String(val).substr(0,10);
-        }
+        attachBirth(val) {
+            return String(val).substr(0, 10);
+        },
+        //图片上传之前的校验
+        beforeAvatorUpload(file) {
+            const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
+            if (!isJPG) {
+                this.$message.error("上传的头像图片只能是jpg或png格式");
+                return false;
+            }
+            const isLt2MB = (file.size / 1024 / 1024) < 2;
+            if (!isLt2MB) {
+                this.$message.error("上传的头像图片大小不能超过2MB");
+                return false;
+            }
+            return true;
+        },
+        //上传图片成功
+        handleAvatorSuccess(res) {
+            let thisPic = this;
+            if (res.code == 1) {
+                thisPic.getData();
+                thisPic.$notify({
+                    title: '上传成功',
+                    type: 'success'
+                });
+            } else {
+                thisPic.$notify({
+                    title: '上传失败',
+                    type: 'error'
+                });
+            }
+        },
+
     }
 }
