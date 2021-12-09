@@ -4,11 +4,13 @@
             <div class="handle-box">
                 <el-input v-model="select_word" size="mini" placeholder="请输入歌手名" class="handle-input"></el-input>
                 <el-button type="primary" size="mini" @click="centerDialogVisible = true">添加歌手</el-button>
+                <el-button type="primary" size="mini" @click="delAll">批量删除</el-button>
             </div>
         </div>
 
         <!-- 歌手列表显示 -->
-        <el-table size="mini" border style="width:100%" height="500px" :data="data">
+        <el-table size="mini" border style="width:100%" height="500px" :data="data" @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="40" />
             <el-table-column label="歌手图片" width="110px" align="center">
                 <template slot-scope="scope">
                     <div class="singer-img">
@@ -39,6 +41,7 @@
             <el-table-column label="操作" width="150" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+                    <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -107,11 +110,20 @@
                 <el-button size="mini" @click="editSave">确定</el-button>
             </span>
         </el-dialog>
+
+        <!-- 删除歌手页面 -->
+        <el-dialog title="修改歌手" :visible.sync="delVisible" width="300px" center>
+            <div align="center">删除不可恢复，是否确定删除？</div>
+            <span slot="footer">
+                <el-button size="mini" @click="delVisible = false">取消</el-button>
+                <el-button size="mini" @click="deleteRow">确定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { getAllSinger, setSinger,updateSinger } from "../api/index";
+import { delSinger, updateSinger, getAllSinger, setSinger } from "../api/index";
 import { mixin } from "../mixins/index";
 
 export default {
@@ -122,6 +134,8 @@ export default {
             centerDialogVisible: false,
             //编辑弹窗是否显示
             editVisible: false,
+            //删除弹窗是否显示
+            delVisible: false,
             //添加框
             registerForm: {
                 name: "",
@@ -142,8 +156,10 @@ export default {
             tableData: [],
             tempData: [],
             select_word: "",
-            pageSize: 5, //分页每页大小
+            pageSize: 3, //分页每页大小
             currentPage: 1, //当前页
+            idx: -1, //当前选择项
+            multipleSelection: []   //哪些选项已经打勾
         };
     },
     //监控多个变量
@@ -216,7 +232,6 @@ export default {
                     console.log(err);
                 });
             this.centerDialogVisible = false;
-            this.getData();
         },
         //更新图片
         uploadUrl(id) {
@@ -225,19 +240,20 @@ export default {
         //编辑歌手信息
         handleEdit(row) {
             this.editVisible = true;
-            this.form={
+            this.form = {
                 id: row.id,
                 name: row.name,
                 sex: row.sex,
                 birth: row.birth,
                 location: row.location,
-                introduction: row.introduction
-            }
+                introduction: row.introduction,
+            };
         },
         //保存编辑页面修改的数据
         editSave() {
             let d = new Date(this.form.birth);
-            let datetime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            let datetime =
+                d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             let params = new URLSearchParams();
             params.append("id", this.form.id);
             params.append("name", this.form.name);
@@ -260,7 +276,22 @@ export default {
                     console.log(err);
                 });
             this.editVisible = false;
-            this.getData();
+        },
+        //删除一名歌手
+        deleteRow() {
+            delSinger(this.idx)
+                .then((res) => {
+                    if (res) {
+                        this.getData();
+                        this.notify("删除成功", "success");
+                    } else {
+                        this.notify("删除失败", "error");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            this.delVisible = false;
         },
     },
 };

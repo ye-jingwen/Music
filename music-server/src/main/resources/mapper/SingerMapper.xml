@@ -100,7 +100,7 @@
     <!-- 删除 -->
     <delete id="delete" parameterType="java.lang.Integer">
         delete
-        from Signer
+        from Singer
         where id = #{id}
     </delete>
 
