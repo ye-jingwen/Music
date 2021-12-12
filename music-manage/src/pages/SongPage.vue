@@ -19,9 +19,6 @@
                     <div class="song-img">
                         <img :src="getUrl(scope.row.pic)" style="width:100%" />
                     </div>
-                    <el-upload :action="uploadUrl(scope.row.id)" :before-upload="beforeAvatorUpload" :on-success="handleAvatorSuccess">
-                        <el-button size="mini">更新图片</el-button>
-                    </el-upload>
                 </template>
             </el-table-column>
             <el-table-column prop="name" label="歌手-歌名" width="120" align="center" />
@@ -33,6 +30,17 @@
                             {{item}}
                         </li>
                     </ul>
+                </template>
+            </el-table-column>
+            <el-table-column label="资源更新" width="150" align="center">
+                <template slot-scope="scope">
+                    <el-upload :action="uploadUrl(scope.row.id)" :before-upload="beforeAvatorUpload" :on-success="handleAvatorSuccess">
+                        <el-button size="mini">更新图片</el-button>
+                    </el-upload>
+                    <br/>
+                    <el-upload :action="uploadSongUrl(scope.row.id)" :before-upload="beforeSongUpload" :on-success="handleSongSuccess">
+                        <el-button size="mini">更新歌曲</el-button>
+                    </el-upload>
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="150" align="center">
@@ -220,7 +228,7 @@ export default {
         },
         //更新图片
         uploadUrl(id) {
-            return `${this.$store.state.HOST}/singer/updateSingerPic?id=${id}`;
+            return `${this.$store.state.HOST}/song/updateSongPic?id=${id}`;
         },
         //编辑歌曲信息
         handleEdit(row) {
@@ -280,6 +288,39 @@ export default {
                 result.push(value);
             }
             return result;
+        },
+        //更新歌曲url
+        uploadSongUrl(id) {
+            return `${this.$store.state.HOST}/song/updateSongUrl?id=${id}`;
+        },
+        //歌曲上传之前的校验
+        beforeSongUpload(file) {
+            var testMsg = file.name.substring(file.name.lastIndexOf(".") + 1); //文件名.后的内容，即文件拓展名
+            if (testMsg != "mp3" && testMsg != "mp4" && testMsg != "flac") {
+                this.$message({
+                    message: "上传的音乐格式错误",
+                    type: "error",
+                });
+                return false;
+            } else {
+                return true;
+            }
+        },
+        //上传歌曲成功
+        handleSongSuccess(res) {
+            let thisPic = this;
+            if (res.code == 1) {
+                thisPic.getData();
+                thisPic.$notify({
+                    title: "上传成功",
+                    type: "success",
+                });
+            } else {
+                thisPic.$notify({
+                    title: "上传失败",
+                    type: "error",
+                });
+            }
         },
     },
 };

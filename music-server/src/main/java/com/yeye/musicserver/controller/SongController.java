@@ -129,4 +129,90 @@ public class SongController {
         String singerId = request.getParameter("singerId");
         return songService.selectBySingerId(Integer.parseInt(singerId));
     }
+
+    //更新歌曲图片
+    @RequestMapping(value = "/updateSongPic", method = RequestMethod.POST)
+    public Object updateSongPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
+        JSONObject jsonObject = new JSONObject();
+        if (avatorFile.isEmpty()) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "文件上传失败");
+            return jsonObject;
+        }
+        //（重名覆盖）文件名=当前时间（到毫秒）+原来的文件名
+        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
+        //文件路径
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songPic";
+        File file1 = new File(filePath);
+        if (!file1.exists()) {
+            file1.mkdir();
+        }
+        //实际的文件的地址
+        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
+        //存储到数据库里的相对文件地址
+        String storeAvatorPath = "/img/songPic/" + fileName;
+        try {
+            avatorFile.transferTo(dest);
+            Song song = new Song();
+            song.setId(id);
+            song.setPic(storeAvatorPath);
+            boolean flag = songService.update(song);
+            if (flag) {
+                jsonObject.put(Consts.CODE, 1);
+                jsonObject.put(Consts.MSG, "上传成功");
+                jsonObject.put("pic", storeAvatorPath);
+                return jsonObject;
+            }
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "上传失败");
+            return jsonObject;
+        } catch (IOException e) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "上传失败" + e.getMessage());
+        }
+        return jsonObject;
+    }
+
+    //更新歌曲
+    @RequestMapping(value = "/updateSongUrl", method = RequestMethod.POST)
+    public Object updateSongUrl(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
+        JSONObject jsonObject = new JSONObject();
+        if (avatorFile.isEmpty()) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "文件上传失败");
+            return jsonObject;
+        }
+        //（重名覆盖）文件名=当前时间（到毫秒）+原来的文件名
+        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
+        //文件路径
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
+        File file1 = new File(filePath);
+        if (!file1.exists()) {
+            file1.mkdir();
+        }
+        //实际的文件的地址
+        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
+        //存储到数据库里的相对文件地址
+        String storeAvatorPath = "/song/" + fileName;
+        try {
+            avatorFile.transferTo(dest);
+            Song song = new Song();
+            song.setId(id);
+            song.setUrl(storeAvatorPath);
+            boolean flag = songService.update(song);
+            if (flag) {
+                jsonObject.put(Consts.CODE, 1);
+                jsonObject.put(Consts.MSG, "上传成功");
+                jsonObject.put("avator", storeAvatorPath);
+                return jsonObject;
+            }
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "上传失败");
+            return jsonObject;
+        } catch (IOException e) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "上传失败" + e.getMessage());
+        }
+        return jsonObject;
+    }
 }
