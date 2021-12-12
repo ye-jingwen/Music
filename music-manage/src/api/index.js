@@ -20,3 +20,4 @@ export const selectBySingerId = (id) => get(`song/singer/selectBySingerId?singer
 export const updateSong = (params) => post(`song/updateSong`, params);
 //删除歌曲
 export const delSong = (id) => get(`song/deleteSong?id=${id}`);
+//

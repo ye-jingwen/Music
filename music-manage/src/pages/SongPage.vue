@@ -1,7 +1,7 @@
 <template>
     <div class="table">
         <div class="crumbs">
-            <i class="el-icon-tickets"></i>歌曲信息
+            <i class="el-icon-tickets" />歌曲信息
         </div>
         <div class="container">
             <div class="handle-box">
@@ -14,10 +14,22 @@
         <!-- 歌曲列表显示 -->
         <el-table size="mini" border style="width:100%" height="500px" :data="data" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="40" />
-            <el-table-column label="歌曲图片" width="110px" align="center">
+            <el-table-column label="歌曲图片" width="110" align="center">
                 <template slot-scope="scope">
                     <div class="song-img">
                         <img :src="getUrl(scope.row.pic)" style="width:100%" />
+                    </div>
+                    <div class="play" @click="setSongUrl(scope.row.url,scope.row.name)">
+                        <div v-if="toggle == scope.row.name">
+                            <svg class="icon">
+                                <use xlink:href="#icon-stopPlay" />
+                            </svg>
+                        </div>
+                        <div v-if="toggle != scope.row.name">
+                            <svg class="icon">
+                                <use xlink:href="#icon-startPlay" />
+                            </svg>
+                        </div>
                     </div>
                 </template>
             </el-table-column>
@@ -32,12 +44,12 @@
                     </ul>
                 </template>
             </el-table-column>
-            <el-table-column label="资源更新" width="150" align="center">
+            <el-table-column label="资源更新" width="100" align="center">
                 <template slot-scope="scope">
                     <el-upload :action="uploadUrl(scope.row.id)" :before-upload="beforeAvatorUpload" :on-success="handleAvatorSuccess">
                         <el-button size="mini">更新图片</el-button>
                     </el-upload>
-                    <br/>
+                    <br />
                     <el-upload :action="uploadSongUrl(scope.row.id)" :before-upload="beforeSongUpload" :on-success="handleSongSuccess">
                         <el-button size="mini">更新歌曲</el-button>
                     </el-upload>
@@ -113,8 +125,10 @@
 </template>
 
 <script>
-import { delSong, updateSong, selectBySingerId } from "../api/index";
 import { mixin } from "../mixins/index";
+import { mapGetters } from "vuex";
+import "@/assets/js/iconfont.js"; //开始暂停按钮
+import { delSong, updateSong, selectBySingerId } from "../api/index";
 
 export default {
     mixins: [mixin],
@@ -146,10 +160,12 @@ export default {
             currentPage: 1, //当前页
             idx: -1, //当前选择项
             multipleSelection: [], //哪些选项已经打勾
+            toggle: false, //播放器的显示图标状态
         };
     },
     //监控多个变量
     computed: {
+        ...mapGetters(["isPlay"]),
         //计算当前搜索结果表里的数据
         data() {
             return this.tableData.slice(
@@ -178,6 +194,9 @@ export default {
         this.singerId = this.$route.query.id;
         this.singerName = this.$route.query.name;
         this.getData();
+    },
+    destroyed() {
+        this.$store.commit("setIsPlay", false);
     },
     methods: {
         //获取当前页
@@ -322,6 +341,16 @@ export default {
                 });
             }
         },
+        //切换播放歌曲
+        setSongUrl(url, name) {
+            this.toggle = name;
+            this.$store.commit("setUrl", this.$store.state.HOST + url);
+            if (this.isPlay) {
+                this.$store.commit("setIsPlay", false);
+            } else {
+                this.$store.commit("setIsPlay", true);
+            }
+        },
     },
 };
 </script>
@@ -344,5 +373,24 @@ export default {
 .pageination {
     display: flex;
     justify-content: center;
+}
+.play {
+    position: absolute;
+    z-index: 100;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    top: 18px;
+    left: 15px;
+}
+.icon {
+    width: 2em;
+    height: 2em;
+    color: white;
+    fill: currentColor;
+    overflow: hidden;
 }
 </style>
