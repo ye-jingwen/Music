@@ -11,13 +11,13 @@ import java.util.List;
  * @create: 2021-12-07
  **/
 public interface SingerService {
-    //增加
+    //判断是否增加成功
     public boolean insert(Singer singer);
 
-    //修改
+    //判断是否修改成功
     public boolean update(Singer singer);
 
-    //删除
+    //判断是否删除成功
     public boolean delete(Integer id);
 
     //根据id查询歌手

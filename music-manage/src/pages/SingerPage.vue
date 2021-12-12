@@ -38,6 +38,11 @@
                     <p style="height:100px; overflow:scroll">{{scope.row.introduction}}</p>
                 </template>
             </el-table-column>
+            <el-table-column label="歌曲管理" width="110" align="center">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="songEdit(scope.row.id,scope.row.name)">歌曲管理</el-button>
+                </template>
+            </el-table-column>
             <el-table-column label="操作" width="150" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -112,7 +117,7 @@
         </el-dialog>
 
         <!-- 删除歌手页面 -->
-        <el-dialog title="修改歌手" :visible.sync="delVisible" width="300px" center>
+        <el-dialog title="删除歌手" :visible.sync="delVisible" width="300px" center>
             <div align="center">删除不可恢复，是否确定删除？</div>
             <span slot="footer">
                 <el-button size="mini" @click="delVisible = false">取消</el-button>
@@ -130,12 +135,9 @@ export default {
     mixins: [mixin],
     data() {
         return {
-            //添加弹窗是否显示
-            centerDialogVisible: false,
-            //编辑弹窗是否显示
-            editVisible: false,
-            //删除弹窗是否显示
-            delVisible: false,
+            centerDialogVisible: false, //添加弹窗是否显示
+            editVisible: false, //编辑弹窗是否显示
+            delVisible: false, //删除弹窗是否显示
             //添加框
             registerForm: {
                 name: "",
@@ -159,7 +161,7 @@ export default {
             pageSize: 3, //分页每页大小
             currentPage: 1, //当前页
             idx: -1, //当前选择项
-            multipleSelection: []   //哪些选项已经打勾
+            multipleSelection: [], //哪些选项已经打勾
         };
     },
     //监控多个变量
@@ -292,6 +294,10 @@ export default {
                     console.log(err);
                 });
             this.delVisible = false;
+        },
+        //转向歌曲管理页面
+        songEdit(id, name) {
+            this.$router.push({ path: `/Song`, query: { id, name } });
         },
     },
 };

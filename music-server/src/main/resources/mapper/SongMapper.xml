@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yeye.musicserver.dao.SongMapper">
+    <resultMap id="BaseResultMap" type="com.yeye.musicserver.pojo.Song" >
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="singer_id" jdbcType="VARCHAR" property="singerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+    </resultMap>
+
+    <resultMap id="ResultMapWithBLOBs" type="com.yeye.musicserver.pojo.Song" extends="BaseResultMap">
+        <result column="lyric" jdbcType="LONGVARCHAR" property="lyric"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,singer_id,name,introduction,create_time,update_time,pic,url
+    </sql>
+    <sql id="Blob_Column_List">
+        id
+        ,singer_id,name,introduction,create_time,update_time,pic,lyric,url
+    </sql>
+
+    <!-- 增加 -->
+    <insert id="insert" parameterType="com.yeye.musicserver.pojo.Song">
+        insert into Song
+        <!-- prefix:前面要加上的东西 suffix:后面要加上的东西 suffixOverrides:要去掉的东西-->
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="singerId != null">
+                singer_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            create_time, update_time,
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="lyric != null">
+                lyric,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="singerId != null">
+                #{singerId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+            now(),now(),
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="lyric != null">
+                #{lyric},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.yeye.musicserver.pojo.Song">
+        update Song
+        <set>
+            <if test="singer_id != null">
+                singer_id = #{singerId},
+            </if>
+            <if test="name != null">
+                name= #{name},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            update_time = now(),
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="lyric != null">
+                lyric = #{lyric},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from Song
+        where id = #{id}
+    </delete>
+
+    <!-- 根据id查询歌曲 -->
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Blob_Column_List"/>
+        from Song
+        where id = #{id}
+    </select>
+
+    <!-- 根据歌手id查询歌曲 -->
+    <select id="selectBySingerId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Blob_Column_List"/>
+        from Song
+        where singerId = #{singerId}
+    </select>
+
+    <!-- 根据歌曲名字模糊查询列表 -->
+    <select id="selectByName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Blob_Column_List"/>
+        from Song
+        where name like #{name}
+    </select>
+
+    <!-- 查询所有歌曲 -->
+    <select id="allSong" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Blob_Column_List"/>
+        from Song
+    </select>
+
+</mapper>
