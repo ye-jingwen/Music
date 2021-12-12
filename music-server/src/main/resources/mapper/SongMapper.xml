@@ -86,7 +86,7 @@
     <update id="update" parameterType="com.yeye.musicserver.pojo.Song">
         update Song
         <set>
-            <if test="singer_id != null">
+            <if test="singerId != null">
                 singer_id = #{singerId},
             </if>
             <if test="name != null">
@@ -129,7 +129,7 @@
         select
         <include refid="Blob_Column_List"/>
         from Song
-        where singerId = #{singerId}
+        where singer_id = #{singerId}
     </select>
 
     <!-- 根据歌曲名字模糊查询列表 -->

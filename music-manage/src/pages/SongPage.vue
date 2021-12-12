@@ -26,9 +26,13 @@
             </el-table-column>
             <el-table-column prop="name" label="歌手-歌名" width="120" align="center" />
             <el-table-column prop="introduction" label="专辑" width="150" align="center" />
-            <el-table-column label="歌词">
+            <el-table-column label="歌词" align="center">
                 <template slot-scope="scope">
-                    <p style="height:100px; overflow:scroll">{{scope.row.lyric}}</p>
+                    <ul style="height:100px;overflow:scroll;">
+                        <li v-for="(item,index) in parseLyric(scope.row.lyric)" :key="index">
+                            {{item}}
+                        </li>
+                    </ul>
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="150" align="center">
@@ -101,7 +105,7 @@
 </template>
 
 <script>
-import {} from "../api/index";
+import { delSong, updateSong, selectBySingerId } from "../api/index";
 import { mixin } from "../mixins/index";
 
 export default {
@@ -176,11 +180,11 @@ export default {
         getData() {
             this.tempData = [];
             this.tableData = [];
-            // selectSongById(this.singerId).then(res => {
-            //     this.tempData = res;
-            //     this.tableData = res;
-            //     this.currentPage = 1;
-            // })
+            selectBySingerId(this.singerId).then((res) => {
+                this.tempData = res;
+                this.tableData = res;
+                this.currentPage = 1;
+            });
         },
         //添加歌曲
         insertSong() {
@@ -220,58 +224,62 @@ export default {
         },
         //编辑歌曲信息
         handleEdit(row) {
-            // this.editVisible = true;
-            // this.form = {
-            //     id: row.id,
-            //     name: row.name,
-            //     sex: row.sex,
-            //     birth: row.birth,
-            //     location: row.location,
-            //     introduction: row.introduction,
-            // };
+            this.editVisible = true;
+            this.form = {
+                id: row.id,
+                name: row.name,
+                introduction: row.introduction,
+                lyric: row.lyric,
+            };
         },
         //保存编辑页面修改的数据
         editSave() {
-            // let d = new Date(this.form.birth);
-            // let datetime =
-            //     d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            // let params = new URLSearchParams();
-            // params.append("id", this.form.id);
-            // params.append("name", this.form.name);
-            // params.append("sex", this.form.sex);
-            // params.append("pic", "/img/singerPic/singerDefault.jpg");
-            // params.append("birth", datetime);
-            // params.append("location", this.form.location);
-            // params.append("introduction", this.form.introduction);
-            // updateSinger(params)
-            //     .then((res) => {
-            //         if (res.code == 1) {
-            //             this.getData();
-            //             this.notify("修改成功", "success");
-            //         } else {
-            //             this.notify("修改失败", "error");
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     });
-            // this.editVisible = false;
+            let params = new URLSearchParams();
+            params.append("id", this.form.id);
+            params.append("name", this.form.name);
+            params.append("introduction", this.form.introduction);
+            params.append("lyric", this.form.lyric);
+
+            updateSong(params)
+                .then((res) => {
+                    if (res.code == 1) {
+                        this.getData();
+                        this.notify("修改成功", "success");
+                    } else {
+                        this.notify("修改失败", "error");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            this.editVisible = false;
         },
         //删除一首歌曲
         deleteRow() {
-            // delSinger(this.idx)
-            //     .then((res) => {
-            //         if (res) {
-            //             this.getData();
-            //             this.notify("删除成功", "success");
-            //         } else {
-            //             this.notify("删除失败", "error");
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     });
-            // this.delVisible = false;
+            delSong(this.idx)
+                .then((res) => {
+                    if (res) {
+                        this.getData();
+                        this.notify("删除成功", "success");
+                    } else {
+                        this.notify("删除失败", "error");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            this.delVisible = false;
+        },
+        //解析歌词
+        parseLyric(text) {
+            let lines = text.split("\n");
+            let pattern = /\[\d{2}:\d{2}.(\d{3}|\d{2})\]/g; //定义正则表达式
+            let result = [];
+            for (let item of lines) {
+                let value = item.replace(pattern, ""); //将数组中所有包含正则表达式模式的内容设为空
+                result.push(value);
+            }
+            return result;
         },
     },
 };

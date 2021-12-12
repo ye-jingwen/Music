@@ -16,6 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @program: music-server
@@ -33,11 +38,11 @@ public class SongController {
     @RequestMapping(value = "/insertSong", method = RequestMethod.POST)
     public Object insertSong(HttpServletRequest request, @RequestParam("file") MultipartFile mpFile) {
         JSONObject jsonObject = new JSONObject();
-        String singerId=request.getParameter("singerId").trim();
-        String name=request.getParameter("name").trim();
-        String introduction=request.getParameter("singerId").trim();
-        String pic="/img/songPic/songDefault.jpg";
-        String lyric=request.getParameter("lyric").trim();
+        String singerId = request.getParameter("singerId").trim();
+        String name = request.getParameter("name").trim();
+        String introduction = request.getParameter("singerId").trim();
+        String pic = "/img/songPic/songDefault.jpg";
+        String lyric = request.getParameter("lyric").trim();
 
         //上传歌曲文件
         if (mpFile.isEmpty()) {
@@ -59,10 +64,11 @@ public class SongController {
         String storeUrlPath = "/song/" + fileName;
         try {
             mpFile.transferTo(dest);
-            Song song= new Song();
+            Song song = new Song();
             song.setSingerId(Integer.parseInt(singerId));
             song.setName(name);
             song.setIntroduction(introduction);
+            song.setPic(pic);
             song.setLyric(lyric);
             song.setUrl(storeUrlPath);
             boolean flag = songService.insert(song);
@@ -81,5 +87,46 @@ public class SongController {
         }
         return jsonObject;
     }
-    
+
+    //修改歌曲
+    @RequestMapping(value = "/updateSong", method = RequestMethod.POST)
+    public Object updateSong(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        String id = request.getParameter("id").trim();
+        String name = request.getParameter("name").trim();
+        String introduction = request.getParameter("introduction").trim();
+        String lyric = request.getParameter("lyric").trim();
+
+        //保存到歌曲的对象中
+        Song song = new Song();
+        song.setId(Integer.parseInt(id));
+        song.setName(name);
+        song.setIntroduction(introduction);
+        song.setLyric(lyric);
+        boolean flag = songService.update(song);
+        if (flag) {
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "修改成功");
+        } else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "修改失败");
+        }
+        return jsonObject;
+    }
+
+    //删除歌曲
+    @RequestMapping(value = "/deleteSong", method = RequestMethod.GET)
+    public Object deleteSong(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        String id = request.getParameter("id").trim();
+        boolean flag = songService.delete(Integer.parseInt(id));
+        return flag;
+    }
+
+    //根据歌手id查询歌曲
+    @RequestMapping(value = "/singer/selectBySingerId", method = RequestMethod.GET)
+    public Object selectBySingerId(HttpServletRequest request) {
+        String singerId = request.getParameter("singerId");
+        return songService.selectBySingerId(Integer.parseInt(singerId));
+    }
 }

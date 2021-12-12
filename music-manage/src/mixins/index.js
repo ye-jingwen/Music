@@ -38,9 +38,9 @@ export const mixin = {
                 this.$message.error("上传的头像图片只能是jpg或png格式");
                 return false;
             }
-            const isLt2MB = (file.size / 1024 / 1024) < 2;
-            if (!isLt2MB) {
-                this.$message.error("上传的头像图片大小不能超过2MB");
+            const isLt50MB = (file.size / 1024 / 1024) < 50;
+            if (!isLt50MB) {
+                this.$message.error("上传的头像图片大小不能超过50MB");
                 return false;
             }
             return true;
