@@ -22,19 +22,19 @@ public class SongListServiceImpl implements SongListService {
     //判断是否增加成功
     @Override
     public boolean insert(SongList songList) {
-        return songListMapper.insert(songList)>0;
+        return songListMapper.insert(songList) > 0;
     }
 
     //判断是否修改成功
     @Override
     public boolean update(SongList songList) {
-        return songListMapper.update(songList)>0;
+        return songListMapper.update(songList) > 0;
     }
 
     //判断是否删除成功
     @Override
     public boolean delete(Integer id) {
-        return songListMapper.delete(id)>0;
+        return songListMapper.delete(id) > 0;
     }
 
     //根据id查询整个对象
