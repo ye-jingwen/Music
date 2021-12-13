@@ -30,6 +30,7 @@ public class ListSongController {
         String songId = request.getParameter("songId").trim();
         String songListId = request.getParameter("songListId").trim();
 
+        //保存对象到歌单歌曲中
         ListSong listSong = new ListSong();
         listSong.setSongId(Integer.parseInt(songId));
         listSong.setSongListId(Integer.parseInt(songListId));
