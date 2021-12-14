@@ -154,7 +154,7 @@ export default {
         },
         //删除一首歌单歌曲
         deleteRow() {
-            delListSong(this.idx, this.songListId)
+            deleteListSong(this.idx, this.songListId)
                 .then((res) => {
                     if (res) {
                         this.getData();

@@ -172,7 +172,7 @@ public class ConsumerController {
         return consumerService.allConsumer();
     }
 
-    //更新前端用户图片
+    //更新用户图片
     @RequestMapping(value = "/updateConsumerPic", method = RequestMethod.POST)
     public Object updateConsumerPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
         JSONObject jsonObject = new JSONObject();
@@ -184,7 +184,7 @@ public class ConsumerController {
         //文件名=当前时间到毫秒+原来的文件名
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
         //文件路径
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "avatorImages";
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "userPic";
         //如果文件路径不存在，新增该路径
         File file1 = new File(filePath);
         if (!file1.exists()) {
@@ -193,7 +193,7 @@ public class ConsumerController {
         //实际的文件地址
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
         //存储到数据库里的相对文件地址
-        String storeAvatorPath = "/avatorImages/" + fileName;
+        String storeAvatorPath = "/img/uerPic/" + fileName;
         try {
             avatorFile.transferTo(dest);
             Consumer consumer = new Consumer();

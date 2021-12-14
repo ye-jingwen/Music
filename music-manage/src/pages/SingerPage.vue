@@ -53,7 +53,8 @@
 
         <!-- 翻页 -->
         <div class="pagination">
-            <el-pagination background layout="total,prev,pager,next" :current-page="currentPage" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange" />
+            <el-pagination background layout="total,prev,pager,next" :current-page="currentPage" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange">
+            </el-pagination>
         </div>
 
         <!-- 添加歌手页面 -->

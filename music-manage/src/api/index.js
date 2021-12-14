@@ -41,4 +41,16 @@ export const selectListSong = (songListId) => get(`listSong/selectListSong?songL
 //给歌单增加歌曲
 export const setListSong = (params) => post(`listSong/insertListSong`, params);
 //删除歌曲
-export const delListSong = (songId,songListId) => get(`listSong/deleteListSong?songId=${songId}&songListId=${songListId}`);
+export const deleteListSong = (songId,songListId) => get(`listSong/deleteListSong?songId=${songId}&songListId=${songListId}`);
+
+/********** 用户相关 **********/
+//查询用户
+export const getAllConsumer =() => get(`consumer/allConsumer`);
+//添加用户
+export const setConsumer = (params) => post(`consumer/insertConsumer`,params);
+//编辑用户
+export const updateConsumer = (params) => post(`consumer/updateConsumer`,params);
+//删除用户
+export const delConsumer = (id) => get(`consumer/deleteConsumer?id=${id}`);
+//根据用户id查询该用户的详细信息
+export const selectById =(id) => get(`/consumer/selectById?id=${id}`);
