@@ -2,6 +2,7 @@ package com.yeye.musicserver.service.impl;
 
 import com.yeye.musicserver.dao.ListSongMapper;
 import com.yeye.musicserver.pojo.ListSong;
+import com.yeye.musicserver.service.ListSongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @create: 2021-12-14
  **/
 @Service
-public class ListSongServiceImpl implements com.yeye.musicserver.service.ListSongService {
+public class ListSongServiceImpl implements ListSongService {
     @Autowired
     private ListSongMapper listSongMapper;
 

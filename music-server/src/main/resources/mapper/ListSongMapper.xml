@@ -15,6 +15,7 @@
         ,song_id,song_list_id
     </sql>
 
+    <!-- 增加 -->
     <insert id="insert" parameterType="com.yeye.musicserver.pojo.ListSong">
         insert into list_song
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,6 +42,7 @@
         </trim>
     </insert>
 
+    <!-- 修改 -->
     <update id="update" parameterType="com.yeye.musicserver.pojo.ListSong">
         update list_song
         <set>
@@ -54,12 +56,14 @@
         where id = #{id}
     </update>
 
+    <!-- 删除 -->
     <delete id="delete" parameterType="java.lang.Integer">
         delete
         from list_song
         where id = #{id}
     </delete>
 
+    <!-- 根据歌曲id和歌单id删除 -->
     <delete id="deleteBySongIdAndSongListId" parameterType="java.util.HashMap">
         delete
         from list_song
@@ -67,6 +71,7 @@
           and song_list_id = #{songListId}
     </delete>
 
+    <!-- 根据id查询整个对象 -->
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -74,6 +79,7 @@
         where id=#{id}
     </select>
 
+    <!-- 根据歌单id查询所有的歌曲 -->
     <select id="selectBySongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -81,6 +87,7 @@
         where song_list_id=#{songListId}
     </select>
 
+    <!-- 查询所有歌单里面的歌曲 -->
     <select id="allListSong" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
