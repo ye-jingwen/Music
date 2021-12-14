@@ -51,10 +51,16 @@ public class SongServiceImpl implements SongService {
         return songMapper.selectBySingerId(singerId);
     }
 
-    //根据歌曲名字模糊查询列表
+    //根据歌曲名字查询列表
     @Override
     public List<Song> selectByName(String name) {
         return songMapper.selectByName(name);
+    }
+
+    //根据歌曲名字模糊查询列表
+    @Override
+    public List<Song> selectLikeName(String name) {
+        return songMapper.selectLikeName("%"+name+"%");
     }
 
     //查询所有歌曲

@@ -74,7 +74,7 @@
         where id=#{id}
     </select>
 
-    <select id="selectListSongBySongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectBySongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from list_song

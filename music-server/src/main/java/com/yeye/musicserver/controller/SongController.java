@@ -123,11 +123,38 @@ public class SongController {
         return flag;
     }
 
+    //根据歌曲id查询歌曲
+    @RequestMapping(value = "/selectBySongId", method = RequestMethod.GET)
+    public Object selectBySongId(HttpServletRequest request) {
+        String id = request.getParameter("id");
+        return songService.selectById(Integer.parseInt(id));
+    }
+
     //根据歌手id查询歌曲
     @RequestMapping(value = "/singer/selectBySingerId", method = RequestMethod.GET)
     public Object selectBySingerId(HttpServletRequest request) {
         String singerId = request.getParameter("singerId");
         return songService.selectBySingerId(Integer.parseInt(singerId));
+    }
+
+    //根据歌曲名字查询歌曲
+    @RequestMapping(value = "/selectBySongName", method = RequestMethod.GET)
+    public Object selectBySongName(HttpServletRequest request) {
+        String songName = request.getParameter("songName");
+        return songService.selectByName(songName);
+    }
+
+    //根据歌曲名字模糊查询歌曲
+    @RequestMapping(value = "/selectLikeSongName", method = RequestMethod.GET)
+    public Object selectLikeSongName(HttpServletRequest request) {
+        String songName = request.getParameter("songName");
+        return songService.selectLikeName(songName);
+    }
+
+    //查询所有歌曲
+    @RequestMapping(value = "/allSong",method = RequestMethod.GET)
+    public Object allSong(HttpServletRequest request){
+        return songService.allSong();
     }
 
     //更新歌曲图片

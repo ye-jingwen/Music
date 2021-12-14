@@ -50,8 +50,8 @@ public class ListSongServiceImpl implements com.yeye.musicserver.service.ListSon
 
     //根据歌单id查询所有的歌曲
     @Override
-    public List<ListSong> selectListSongBySongListId(Integer songListId) {
-        return listSongMapper.selectListSongBySongListId(songListId);
+    public List<ListSong> selectBySongListId(Integer songListId) {
+        return listSongMapper.selectBySongListId(songListId);
     }
 
     //查询所有歌单里面的歌曲

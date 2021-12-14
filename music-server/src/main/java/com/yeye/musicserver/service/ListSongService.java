@@ -1,6 +1,7 @@
 package com.yeye.musicserver.service;
 
 import com.yeye.musicserver.pojo.ListSong;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface ListSongService {
     public ListSong selectById(Integer id);
 
     //根据歌单id查询所有的歌曲
-    public List<ListSong> selectListSongBySongListId(Integer songListId);
+    public List<ListSong> selectBySongListId(Integer songListId);
 
     //查询所有歌单里面的歌曲
     public List<ListSong> allListSong();

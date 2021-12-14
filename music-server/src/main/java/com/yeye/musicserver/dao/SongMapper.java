@@ -29,8 +29,11 @@ public interface SongMapper {
     //根据歌手id查询歌曲
     public List<Song> selectBySingerId(Integer singerId);
 
-    //根据歌曲名字模糊查询列表
+    //根据歌曲名字查询列表
     public List<Song> selectByName(String name);
+
+    //根据歌曲名字模糊查询列表
+    public List<Song> selectLikeName(String name);
 
     //查询所有歌曲
     public List<Song> allSong();

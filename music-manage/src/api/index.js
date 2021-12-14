@@ -16,6 +16,10 @@ export const delSinger = (id) => get(`singer/deleteSinger?id=${id}`);
 /********** 歌曲相关 **********/
 //根据歌手id查询歌曲
 export const selectBySingerId = (id) => get(`song/singer/selectBySingerId?singerId=${id}`);
+//根据歌曲id查询歌曲对象
+export const selectBySongId = (id) => get(`song/selectBySongId?id=${id}`);
+//根据歌曲名字查询歌曲对象
+export const selectBySongName = (songName) => get(`song/selectBySongName?songName=${songName}`);
 //编辑歌曲
 export const updateSong = (params) => post(`song/updateSong`, params);
 //删除歌曲
@@ -30,3 +34,11 @@ export const setSongList = (params) => post(`songList/insertSongList`, params);
 export const updateSongList = (params) => post(`songList/updateSongList`, params);
 //删除歌单
 export const delSongList = (id) => get(`songList/deleteSongList?id=${id}`);
+
+/********** 歌单歌曲相关 **********/
+//根据歌单id查询歌曲
+export const selectListSong = (songListId) => get(`listSong/selectListSong?songListId=${songListId}`);
+//给歌单增加歌曲
+export const setListSong = (params) => post(`listSong/insertListSong`, params);
+//删除歌曲
+export const delListSong = (songId,songListId) => get(`listSong/deleteListSong?songId=${songId}&songListId=${songListId}`);

@@ -49,7 +49,7 @@ public class ListSongController {
     @RequestMapping(value = "/selectListSong", method = RequestMethod.GET)
     public Object selectListSong(HttpServletRequest request) {
         String songListId = request.getParameter("songListId");
-        return listSongService.selectListSongBySongListId(Integer.parseInt(songListId));
+        return listSongService.selectBySongListId(Integer.parseInt(songListId));
     }
 
     //删除歌单里的歌曲

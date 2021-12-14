@@ -31,7 +31,7 @@ public interface ListSongMapper {
     public ListSong selectById(Integer id);
 
     //根据歌单id查询所有的歌曲
-    public List<ListSong> selectListSongBySongListId(Integer songListId);
+    public List<ListSong> selectBySongListId(Integer songListId);
 
     //查询所有歌单里面的歌曲
     public List<ListSong> allListSong();
