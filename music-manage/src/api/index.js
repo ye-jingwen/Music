@@ -24,6 +24,8 @@ export const selectBySongName = (songName) => get(`song/selectBySongName?songNam
 export const updateSong = (params) => post(`song/updateSong`, params);
 //删除歌曲
 export const delSong = (id) => get(`song/deleteSong?id=${id}`);
+//查询所有歌曲
+export const getAllSong = () => get(`song/allSong`);
 
 /********** 歌单相关 **********/
 //查询歌单
@@ -41,16 +43,16 @@ export const selectListSong = (songListId) => get(`listSong/selectListSong?songL
 //给歌单增加歌曲
 export const setListSong = (params) => post(`listSong/insertListSong`, params);
 //删除歌曲
-export const deleteListSong = (songId,songListId) => get(`listSong/deleteListSong?songId=${songId}&songListId=${songListId}`);
+export const deleteListSong = (songId, songListId) => get(`listSong/deleteListSong?songId=${songId}&songListId=${songListId}`);
 
 /********** 用户相关 **********/
 //查询用户
-export const getAllConsumer =() => get(`consumer/allConsumer`);
+export const getAllConsumer = () => get(`consumer/allConsumer`);
 //添加用户
-export const setConsumer = (params) => post(`consumer/insertConsumer`,params);
+export const setConsumer = (params) => post(`consumer/insertConsumer`, params);
 //编辑用户
-export const updateConsumer = (params) => post(`consumer/updateConsumer`,params);
+export const updateConsumer = (params) => post(`consumer/updateConsumer`, params);
 //删除用户
 export const delConsumer = (id) => get(`consumer/deleteConsumer?id=${id}`);
 //根据用户id查询该用户的详细信息
-export const selectById =(id) => get(`/consumer/selectById?id=${id}`);
+export const selectById = (id) => get(`/consumer/selectById?id=${id}`);
