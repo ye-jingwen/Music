@@ -1,30 +1,25 @@
 <template>
-  <div class="home">
-    首页
-  </div>
+    <div class="home">
+        <swiper />
+    </div>
 </template>
 
 <script>
+import Swiper from "../components/Swiper.vue";
 
 export default {
-  name: 'home',
-  components: {
-  
-  },
-  data () {
-    return {
-      
-    }
-  },
-  created () {
-   
-  },
-  methods: {
-
-  }
-}
+    name: "home",
+    components: {
+      Swiper
+    },
+    data() {
+        return {};
+    },
+    created() {},
+    methods: {},
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/home.scss';
+@import "../assets/css/home.scss";
 </style>

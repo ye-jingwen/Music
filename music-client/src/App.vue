@@ -1,19 +1,21 @@
 <template>
-  <div id="app">    
-    <router-view class="music-content"/>   
-  </div>
+    <div id="app">
+        <the-header></the-header>
+        <router-view class="music-content" />
+    </div>
 </template>
 
 <script>
+import TheHeader from "./components/TheHeader.vue";
 
 export default {
-  name: 'App',
-  components: {
-    
-  }
-}
+    name: "App",
+    components: {
+        TheHeader,
+    },
+};
 </script>
 
 <style  lang="scss" scoped>
-@import './assets/css/app.scss';
+@import "./assets/css/app.scss";
 </style>
