@@ -193,7 +193,7 @@ public class ConsumerController {
         //实际的文件地址
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
         //存储到数据库里的相对文件地址
-        String storeAvatorPath = "/img/uerPic/" + fileName;
+        String storeAvatorPath = "/img/userPic/" + fileName;
         try {
             avatorFile.transferTo(dest);
             Consumer consumer = new Consumer();

@@ -2,7 +2,6 @@ package com.yeye.musicserver.service.impl;
 
 import com.yeye.musicserver.dao.ConsumerMapper;
 import com.yeye.musicserver.pojo.Consumer;
-import com.yeye.musicserver.pojo.Singer;
 import com.yeye.musicserver.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     //根据id查询用户
     @Override
-    public Singer selectById(Integer id) {
+    public Consumer selectById(Integer id) {
         return consumerMapper.selectById(id);
     }
 

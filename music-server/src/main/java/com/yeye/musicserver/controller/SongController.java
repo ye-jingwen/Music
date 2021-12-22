@@ -40,7 +40,7 @@ public class SongController {
         JSONObject jsonObject = new JSONObject();
         String singerId = request.getParameter("singerId").trim();
         String name = request.getParameter("name").trim();
-        String introduction = request.getParameter("singerId").trim();
+        String introduction = request.getParameter("introduction").trim();
         String pic = "/img/songPic/songDefault.jpg";
         String lyric = request.getParameter("lyric").trim();
 

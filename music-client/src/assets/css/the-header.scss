@@ -62,7 +62,8 @@
 
   .search-btn {
     @include layout(center, center);
-    background-color: $color-blue-active;
+    // background-color: $color-blue-active;
+    background-color: $color-pink;
     width: $header-search-btn-width;
     height: $header-search-btn-height;
     cursor: pointer;
@@ -138,6 +139,8 @@
 }
 
 .active {
-  color: $theme-color !important;
-  border-bottom: 5px solid $theme-color !important;
+  // color: $theme-color !important;
+  color: $color-pink !important;
+  // border-bottom: 5px solid $theme-color !important;
+  border-bottom: 5px solid $color-pink !important;
 }

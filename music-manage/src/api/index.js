@@ -56,3 +56,15 @@ export const updateConsumer = (params) => post(`consumer/updateConsumer`, params
 export const delConsumer = (id) => get(`consumer/deleteConsumer?id=${id}`);
 //根据用户id查询该用户的详细信息
 export const selectById = (id) => get(`/consumer/selectById?id=${id}`);
+
+/********** 收藏相关 **********/
+//指定用户的收藏列表
+export const getCollectOfUserId = (userId) => get(`/collect/selectByUserId?userId=${userId}`);
+//删除用户收藏的歌曲
+export const deleteCollection = (userId,songId) => get(`collect/deleteCollect?userId=${userId}&songId=${songId}`);
+
+/********** 评论相关 **********/
+//指定歌单的评论列表
+export const getCommentOfSongListId = (songListId) => get(`/comment/selectBySongListId?songListId=${songListId}`);
+//删除评论
+export const deleteComment = (id) => get(`comment/deleteComment?id=${id}`);

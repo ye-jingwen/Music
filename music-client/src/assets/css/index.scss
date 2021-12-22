@@ -38,6 +38,18 @@ div {
   margin-left: 500px !important;
 }
 
-.el-slider__runway {
-  background-color: $color-blue !important;
+// .el-slider__runway {
+//   background-color: $color-blue !important;
+// }
+.el-slider {
+  .el-slider__bar {
+    background: $color-pink-active !important;
+  }
+  .el-slider__runway {
+    background-color: $color-pink-shallow !important;
+    .el-slider__button {
+      background: $color-white;
+      border: solid 2px $color-pink-active;
+    }
+  }
 }

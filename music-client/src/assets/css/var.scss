@@ -9,18 +9,23 @@ $color-blue: #95d2f6;
 $color-blue-active: #30a4fc;
 $color-blue-light: #2aa3ef;
 $color-blue-dark: #2796dd;
+$color-pink: rgba(233, 183, 190, 0.849);
+$color-pink-shallow: rgb(248, 223, 227);
+$color-pink-active: rgb(228, 163, 174);
+$color-pink-light: rgb(248, 196, 206);
+$color-pink-dark: rgb(221, 187, 193);
 
 // Theme Global Color
-$theme-color: $color-blue;
+// $theme-color: $color-blue;
+$theme-color: $color-pink;
 $theme-background-color: #e6ecf0;
 $theme-header-color: $color-light-white;
 $theme-footer-color: $theme-background-color;
 $theme-play-bar-color: $color-light-white;
 
 // Fonts
-$font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont,
-  Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei,
-  Helvetica Neue, Helvetica, Arial, sans-serif;
+$font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC,
+  Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
 $font-size-default: 14px;
 $font-size-logo: 26px;
 $font-size-header: 18px;

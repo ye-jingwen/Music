@@ -1,7 +1,6 @@
 package com.yeye.musicserver.dao;
 
 import com.yeye.musicserver.pojo.Consumer;
-import com.yeye.musicserver.pojo.Singer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public interface ConsumerMapper {
     public int delete(Integer id);
 
     //根据id查询用户
-    public Singer selectById(Integer id);
+    public Consumer selectById(Integer id);
 
     //根据用户名查询
     public Consumer selectByUsername(String username);

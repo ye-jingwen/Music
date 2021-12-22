@@ -56,7 +56,11 @@
                     <el-input v-model="registerForm.introduction" placeholder="简介" type="textarea" />
                 </el-form-item>
                 <el-form-item prop="style" label="风格" size="mini">
-                    <el-input v-model="registerForm.style" placeholder="风格" />
+                    <!-- <el-input v-model="registerForm.style" placeholder="风格" /> -->
+                    <el-select @change="selectGet" v-model="registerForm.style" placeholder="请选择风格">
+                        <el-option v-for="item in selectList" :key="item.id" :label="item.name" :value="item.name" />
+                    </el-select>
+                    <el-option></el-option>
                 </el-form-item>
             </el-form>
             <span slot="footer">
@@ -75,7 +79,10 @@
                     <el-input v-model="form.introduction" placeholder="简介" type="textarea"></el-input>
                 </el-form-item>
                 <el-form-item prop="style" label="风格" size="mini">
-                    <el-input v-model="form.style" placeholder="风格" />
+                    <!-- <el-input v-model="form.style" placeholder="风格" /> -->
+                    <el-select @change="selectGet" v-model="form.style" placeholder="请选择风格">
+                        <el-option v-for="item in selectList" :key="item.id" :label="item.name" :value="item.name" />
+                    </el-select>
                 </el-form-item>
             </el-form>
             <span slot="footer">
@@ -117,6 +124,16 @@ export default {
                 introduction: "",
                 style: "",
             },
+            //下拉选择风格
+            selectList: [
+                { id: 0, name: "华语" },
+                { id: 1, name: "粤语" },
+                { id: 2, name: "欧美" },
+                { id: 3, name: "日韩" },
+                { id: 4, name: "轻音乐" },
+                { id: 5, name: "BGM" },
+                { id: 6, name: "乐器" },
+            ],
             //编辑框
             form: {
                 id: "",
@@ -198,6 +215,15 @@ export default {
                     console.log(err);
                 });
             this.centerDialogVisible = false;
+        },
+        selectGet(vId) {
+            let obj = {};
+            obj = this.selectList.find((item) => {
+                //这里的selectList就是上面遍历的数据源
+                return item.id === vId; //筛选出匹配数据
+            });
+            console.log(obj.name); //我这边的name就是对应label的
+            console.log(obj.id);
         },
         //更新图片
         uploadUrl(id) {

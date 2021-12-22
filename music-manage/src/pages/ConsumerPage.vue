@@ -35,7 +35,12 @@
                 </template>
             </el-table-column>
             <el-table-column prop="introduction" label="签名" align="center"></el-table-column>
-            <el-table-column prop="location" label="地区" width="100" align="center"></el-table-column>
+            <el-table-column prop="location" label="地区" width="100" text-align="center"></el-table-column>
+            <el-table-column label="收藏" width="80" align="center">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="getCollect(data[scope.$index].id)">收藏</el-button>
+                </template>    
+            </el-table-column>           
             <el-table-column label="操作" width="150" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -379,6 +384,10 @@ export default {
                 });
             this.delVisible = false;
         },
+        //转向该用户的收藏列表
+        getCollect(id){
+            this.$router.push({path: '/collect',query:{id}})
+        }
     },
 };
 </script>

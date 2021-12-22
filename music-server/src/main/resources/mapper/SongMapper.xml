@@ -140,7 +140,7 @@
         where name = #{name}
     </select>
 
-    <!-- 根据歌曲名字查询列表 -->
+    <!-- 根据歌曲名字模糊查询列表 -->
     <select id="selectLikeName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Blob_Column_List"/>

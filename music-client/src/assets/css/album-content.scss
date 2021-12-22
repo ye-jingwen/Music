@@ -44,12 +44,14 @@
 }
 
 .is-play {
-  color: $color-blue-active;
+  // color: $color-blue-active;
+  color: $color-pink-active;
   font-weight: bold;
 }
 
 .icon {
-  @include icon(1.3em, $color-blue-active);
+  // @include icon(1.3em, $color-blue-active);
+  @include icon(1.3em, $color-pink-active);
   vertical-align: -0.3em;
   right: 5px;
 }

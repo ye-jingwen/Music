@@ -2,13 +2,15 @@
 @import "global.scss";
 
 .signUp {
-  position: absolute;
-  top: $header-height + 20px;
+  // position: absolute;
+  margin:auto;
+  margin-top: $header-height + 10px;
   background-color: $color-white;
   border-radius: 10px;
   width: 350px;
-  margin-left: 850px;
+  // margin-left: 850px;
   padding: 30px 30px;
+  display: block;
 
   .signUp-head {
     text-align: center;
@@ -22,6 +24,7 @@
     button {
       display: block;
       width: 50%;
+      color: black;
     }
   }
 }

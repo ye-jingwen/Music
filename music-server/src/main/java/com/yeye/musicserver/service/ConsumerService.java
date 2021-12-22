@@ -22,7 +22,7 @@ public interface ConsumerService {
     public boolean delete(Integer id);
 
     //根据id查询用户
-    public Singer selectById(Integer id);
+    public Consumer selectById(Integer id);
 
     //根据用户名查询
     public Consumer selectByUsername(String username);

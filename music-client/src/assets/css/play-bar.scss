@@ -72,19 +72,21 @@
       .progress-box {
         flex: 1;
         .item-song-title {
-          @include layout(space-between);
+          @include layout(space-between); //中间是隔开的
           height: 20px;
           line-height: 10px;
         }
         .progress {
           width: 100%;
-          background: $color-blue-shallow;
+          // background: $color-blue-shallow;
+          background-color: $color-pink-shallow;
           height: 6px;
           .bg {
             height: 100%;
             .cur-progress {
               height: 100%;
-              background: $color-blue-active;
+              // background: $color-blue-active;
+              background-color: $color-pink-active;
             }
           }
           .idot {
@@ -92,7 +94,9 @@
             height: 16px;
             position: relative;
             border-radius: 50%;
-            background-color: $color-black;
+            // background-color: $color-black;
+            background-color: $color-white;
+            border: solid 2px $color-pink-active;
             top: -11px;
             vertical-align: middle;
           }

@@ -96,7 +96,7 @@
         select
         <include refid="Blob_Column_List"/>
         from song_list
-        where id=#{id}
+        where id = #{id}
     </select>
 
     <!-- 根据标题精确查询歌单列表 -->

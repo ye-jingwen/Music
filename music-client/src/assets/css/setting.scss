@@ -39,17 +39,20 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $color-blue-active;
+      // background-color: $color-blue-active;
+      background-color: $color-pink-active;
       color: $color-white;
     }
     &:active {
-      background-color: $color-blue-shallow;
+      // background-color: $color-blue-shallow;
+      background-color: $color-pink-shallow;
     }
   }
 }
 
 .activeColor {
-  background-color: $color-blue-shallow !important;
+  // background-color: $color-blue-shallow !important;
+  background-color: $color-pink-shallow !important;
   color: $color-white;
 }
 
